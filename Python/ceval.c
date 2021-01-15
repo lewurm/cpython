@@ -1599,10 +1599,9 @@ main_loop:
             if (_Py_TracingPossible(ceval2) || PyDTrace_LINE_ENABLED()) {
                 goto fast_next_opcode;
             }
-            if (!_Py_atomic_load_relaxed(eval_breaker)) {
+            if (_Py_atomic_load_relaxed(eval_breaker)) {
                 continue;
             }
-            // fprintf(stderr, "hello safepoint\n");
             DISPATCH();
         }
 
