@@ -908,6 +908,7 @@ stack_effect(int opcode, int oparg, int jump)
     switch (opcode) {
         case NOP:
         case EXTENDED_ARG:
+        case SAFEPOINT:
             return 0;
 
         /* Stack manipulation */
@@ -2311,6 +2312,7 @@ compiler_function(struct compiler *c, stmt_ty s, int is_async)
     for (i = 0; i < asdl_seq_LEN(decos); i++) {
         ADDOP_I(c, CALL_FUNCTION, 1);
     }
+    ADDOP(c, SAFEPOINT);
 
     return compiler_nameop(c, name, Store);
 }
@@ -2775,6 +2777,7 @@ compiler_for(struct compiler *c, stmt_ty s)
     VISIT_SEQ(c, stmt, s->v.For.body);
     /* Mark jump as artificial */
     c->u->u_lineno = -1;
+    ADDOP(c, SAFEPOINT);
     ADDOP_JUMP(c, JUMP_ABSOLUTE, start);
     compiler_use_next_block(c, cleanup);
 

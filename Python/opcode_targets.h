@@ -12,7 +12,7 @@ static void *opcode_targets[256] = {
     &&TARGET_UNARY_POSITIVE,
     &&TARGET_UNARY_NEGATIVE,
     &&TARGET_UNARY_NOT,
-    &&_unknown_opcode,
+    &&TARGET_SAFEPOINT,
     &&_unknown_opcode,
     &&TARGET_UNARY_INVERT,
     &&TARGET_BINARY_MATRIX_MULTIPLY,
